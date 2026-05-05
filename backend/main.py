@@ -10,10 +10,7 @@ import pandas as pd
 import numpy as np
 import warnings
 from dotenv import load_dotenv
-from google import genai
-
-# ✅ LIME
-# from lime.lime_tabular import LimeTabularExplainer
+import google.generativeai as genai
 import shap
 # Rate limiting
 from slowapi import Limiter
