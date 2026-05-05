@@ -113,6 +113,9 @@ class ChatMessage(BaseModel):
 class ChatResponse(BaseModel):
     response: str
 
+@app.get("/")
+def root():
+    return "Backend is live"
 
 # ------------------ API ------------------
 @app.post("/api/assess_risk", response_model=PredictionResponse)
