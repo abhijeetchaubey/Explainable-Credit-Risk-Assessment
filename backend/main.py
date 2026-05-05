@@ -10,8 +10,7 @@ import pandas as pd
 import numpy as np
 import warnings
 from dotenv import load_dotenv
-import google.generativeai as genai
-from google import genai as gn
+from google import genai
 
 # ✅ LIME
 # from lime.lime_tabular import LimeTabularExplainer
@@ -31,17 +30,7 @@ load_dotenv()
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 
-client = gn.Client(api_key=GEMINI_API_KEY)
-
-if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
-    try:
-        gemini_model = genai.GenerativeModel("models/gemini-3-flash")
-    except Exception as e:
-        print(f"Error initializing Gemini model: {e}")
-        gemini_model = None
-else:
-    gemini_model = None
+client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 
 # ------------------ App Setup ------------------
 app = FastAPI(title="Explainable Credit Risk API")
@@ -199,7 +188,7 @@ def assess_risk(request: Request, application: FrontendApplication):
             key_factors = ["Credit Score", "Annual Income"]
 
         # ------------------ Gemini ------------------
-        if gemini_model:
+        if client:
             prompt = f"""
             Loan Decision: {prediction_str}
             Risk Score: {risk_score}/100
@@ -209,9 +198,9 @@ def assess_risk(request: Request, application: FrontendApplication):
             """
 
             try:
-                response = gemini_model.generate_content(
-                    prompt,
-                    request_options={"timeout": 10}
+                response = client.models.generate_content(
+                    model="gemini-3-flash",
+                    contents=prompt,
                 )
                 explanation_text = response.text.strip()
 
@@ -245,7 +234,7 @@ def chat_with_ai(request: Request, chat_req: ChatMessage):
     decision = chat_req.context.get("decision", "Unknown")
     factors = chat_req.context.get("key_factors", [])
 
-    if gemini_model:
+    if client:
         prompt = f"""
         You are an Explainable Credit risk assessment system. Answer questions only related to credits and loans. If asked something out of scope reply i cant help with that in a formal way.
         Loan Decision: {decision}
