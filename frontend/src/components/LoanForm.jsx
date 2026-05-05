@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, DownloadCloud } from 'lucide-react';
+import { mockDataSets, mockDataLabels } from '../lib/mockData';
 
 export default function LoanForm({ onSubmit, isLoading }) {
   const [formData, setFormData] = useState({
@@ -41,6 +42,13 @@ export default function LoanForm({ onSubmit, isLoading }) {
     onSubmit(processedData);
   };
 
+  const handleLoadMockData = (key) => {
+    const mockData = mockDataSets[key];
+    if (mockData) {
+      setFormData(mockData);
+    }
+  };
+
   const inputClass = "flex h-10 w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200";
   const labelClass = "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2 block text-muted-foreground";
 
@@ -51,6 +59,26 @@ export default function LoanForm({ onSubmit, isLoading }) {
       <div className="mb-8">
         <h2 className="text-2xl font-bold tracking-tight text-foreground">Applicant Details</h2>
         <p className="text-sm text-muted-foreground mt-2">Enter your information for AI-driven risk assessment.</p>
+      </div>
+
+      {/* Mock Data Loader */}
+      <div className="mb-8 p-4 rounded-lg border border-white/10 bg-white/5 relative z-10">
+        <div className="flex items-center gap-2 mb-4">
+          <DownloadCloud className="h-4 w-4 text-primary" />
+          <label className="text-sm font-semibold text-foreground">Load Test Data (Optional)</label>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2">
+          {Object.entries(mockDataLabels).map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => handleLoadMockData(key)}
+              className="px-3 py-2 text-xs font-medium rounded-md bg-white/10 hover:bg-white/20 text-foreground transition-colors duration-200 border border-white/10 hover:border-white/20"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 relative z-10">

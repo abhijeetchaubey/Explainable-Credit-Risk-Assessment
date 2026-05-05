@@ -203,7 +203,7 @@ def assess_risk(request: Request, application: FrontendApplication):
 
             try:
                 response = client.models.generate_content(
-                    model="gemini-3-flash",
+                    model="gemma-4-26b-a4b-it",
                     contents=prompt,
                 )
                 explanation_text = response.text.strip()
