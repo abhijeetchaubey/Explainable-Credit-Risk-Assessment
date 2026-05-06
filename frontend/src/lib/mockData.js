@@ -40,7 +40,7 @@ export const mockDataSets = {
     residential_assets_value: '45000',
     commercial_assets_value: '0',
     luxury_assets_value: '2000',
-    bank_asset_value: '3000'
+    bank_asset_value: '30000'
   },
   borderline: {
     name: 'Emma Davis',
