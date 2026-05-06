@@ -12,7 +12,7 @@ export const mockDataSets = {
     residential_assets_value: '2500000',
     commercial_assets_value: '0',
     luxury_assets_value: '50000',
-    bank_asset_value: '100000'
+    bank_asset_value: '1200000'
   },
   mediumRisk: {
     name: 'Mike Chen',
@@ -20,10 +20,10 @@ export const mockDataSets = {
     education: '0',
     self_employed: '1',
     income_annum: '55000',
-    loan_amount: '45000',
+    loan_amount: '450000',
     loan_term: '24',
     cibil_score: '650',
-    residential_assets_value: '120000',
+    residential_assets_value: '1200000',
     commercial_assets_value: '75000',
     luxury_assets_value: '8000',
     bank_asset_value: '12000'
@@ -47,14 +47,14 @@ export const mockDataSets = {
     no_of_dependents: '0',
     education: '1',
     self_employed: '0',
-    income_annum: '65000',
-    loan_amount: '35000',
+    income_annum: '650000',
+    loan_amount: '1500000',
     loan_term: '18',
     cibil_score: '680',
-    residential_assets_value: '180000',
+    residential_assets_value: '1300000',
     commercial_assets_value: '25000',
     luxury_assets_value: '12000',
-    bank_asset_value: '22000'
+    bank_asset_value: '220000'
   },
   highEarner: {
     name: 'Robert Anderson',
